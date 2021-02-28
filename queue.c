@@ -95,6 +95,29 @@ bool q_insert_tail(queue_t *q, char *s)
     /* TODO: You need to write the complete code for this function */
     /* Remember: It should operate in O(1) time */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q ){
+        return false;
+    }
+    list_ele_t *newh;
+    newh = malloc(sizeof(list_ele_t));
+    if (!newh) {
+        free(newh);
+        return false;
+    }
+
+    strncpy(newh->value, s, strlen(s) + 1);
+    if (!q->head) {
+        newh->next = q->head;
+        q->head = newh;
+        q->tail = newh;
+        q->size++;
+        return true;
+    }
+
+    newh->next = NULL;
+    q->tail->next = newh;
+    q->tail = q->tail->next;
+    q->size++;
     return false;
 }
 
@@ -110,7 +133,23 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
     /* TODO: You need to fix up this code. */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q || !q->head){
+        return false;
+    }
+    if (sp) {
+        if (bufsize > strlen(q->head->value)){
+            strncpy(sp, q->head->value, strlen(q->head->value));
+            sp[strlen(q->head->value)] = '\0';
+        } else{
+            strncpy(sp, q->head->value, bufsize - 1);
+            sp[bufsize - 1] = '\0';
+        }
+
+    list_ele_t *tmp = q->head;
     q->head = q->head->next;
+    free(tmp->value);
+    free(tmp);
+    q->size--;
     return true;
 }
 
@@ -123,7 +162,12 @@ int q_size(queue_t *q)
     /* TODO: You need to write the code for this function */
     /* Remember: It should operate in O(1) time */
     /* TODO: Remove the above comment when you are about to implement. */
-    return 0;
+    if (!q){
+        return 0;
+    }
+
+    return q->size;
+    
 }
 
 /*
@@ -137,6 +181,16 @@ void q_reverse(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q) {
+        return;
+    }
+    if (q->size < 2 ){
+        return;
+    }
+
+    list_ele_t *tmp;
+    tmp = q->head;
+
 }
 
 /*
