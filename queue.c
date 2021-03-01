@@ -190,7 +190,9 @@ void q_reverse(queue_t *q)
 
     list_ele_t *tmp;
     tmp = q->head;
-
+    type somthing illeagal for test
+    /* TODO: You need to fix up this code. */
+    /* TODO: You need to fix up this code. */
 }
 
 /*
