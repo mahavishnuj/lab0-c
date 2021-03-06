@@ -33,9 +33,57 @@ void q_free(queue_t *q)
     free(q);
 }
 
-bool q_insert_head(queue_t *q, char *s) {}
+bool q_insert_head(queue_t *q, char *s)
+{
+    if (!q) {
+        return false;
+    }
+    list_ele_t *newh = malloc(sizeof(list_ele_t));
+    if (!newh) {
+        return false;
+    }
+    newh->value = malloc(sizeof(char) * (strlen(s) + 1));
 
-bool q_insert_tail(queue_t *q, char *s) {}
+    if (newh->value == NULL) {
+        free(newh->value);
+        free(newh);
+        return false;
+    }
+    strncpy(newh->value, s, strlen(s) + 1);
+    newh->next = q->head;
+    if (q->size == 0) {
+        q->tail = newh;
+    }
+    q->head = newh;
+    q->size += 1;
+    return true;
+}
+
+
+bool q_insert_tail(queue_t *q, char *s)
+{
+    if (!q) {
+        return false;
+    }
+    list_ele_t *newh = malloc(sizeof(list_ele_t));
+    if (!newh) {
+        free(newh);
+        return false;
+    }
+
+    newh->value = malloc(sizeof(char) * (strlen(s) + 1));
+    strncpy(newh->value, s, strlen(s) + 1);
+    newh->next = NULL;
+    if (!q->tail) {
+        q->tail = newh;
+        q->head = newh;
+    } else {
+        q->tail->next = newh;
+        q->tail = newh;
+    }
+    q->size++;
+    return true;
+}
 
 bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
@@ -84,4 +132,9 @@ void q_reverse(queue_t *q)
     q->head = cur;
 }
 
-void q_sort(queue_t *q) {}
+void q_sort(queue_t *q)
+{
+    if (!q) {
+        return false;
+    }
+}
