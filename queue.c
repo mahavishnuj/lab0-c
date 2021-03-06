@@ -120,16 +120,17 @@ void q_reverse(queue_t *q)
         return;
     }
     list_ele_t *cur = q->head;
+    list_ele_t *nxt = cur;
     list_ele_t *prev = NULL;
-    list_ele_t *next = NULL;
     q->tail = q->head;
-    while (next) {
-        next = cur->next;
+
+    while (nxt) {
+        nxt = cur->next;
         cur->next = prev;
         prev = cur;
-        cur = next;
+        cur = nxt;
     }
-    q->head = cur;
+    q->head = prev;
 }
 
 list_ele_t *merge_sort(list_ele_t *l1, list_ele_t *l2)
