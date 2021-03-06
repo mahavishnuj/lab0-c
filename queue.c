@@ -135,6 +135,6 @@ void q_reverse(queue_t *q)
 void q_sort(queue_t *q)
 {
     if (!q) {
-        return false;
+        return;
     }
 }
